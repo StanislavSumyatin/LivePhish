@@ -39,6 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\AppleReceiptException.cs" />
+    <Compile Include="Exceptions\LivePhishException.cs" />
     <Compile Include="Implementation\AppleSubscriptionClient.cs" />
     <Compile Include="Implementation\GoogleSubscriptionClient.cs" />
     <Compile Include="Implementation\HttpClient.cs" />

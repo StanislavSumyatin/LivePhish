@@ -4,6 +4,7 @@ using LivePhish.Wrapper.Utils;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
+using LivePhish.Wrapper.Exceptions;
 
 namespace LivePhish.Wrapper.Implementation
 {
@@ -76,35 +77,7 @@ namespace LivePhish.Wrapper.Implementation
 
 			if (receiptResponse.status != 0)
 			{
-				switch (receiptResponse.status)
-				{
-					case 21000:
-						throw new ApplicationException("The App Store could not read the JSON object you provided.");
-
-					case 21002:
-						throw new ApplicationException("The data in the receipt-data property was malformed or missing.");
-
-					case 21003:
-						throw new ApplicationException("The receipt could not be authenticated.");
-
-					case 21004:
-						throw new ApplicationException("The shared secret you provided does not match the shared secret on file for your account.");
-
-					case 21005:
-						throw new ApplicationException("The receipt server is not currently available.");
-
-					case 21006:
-						throw new ApplicationException("This receipt is valid but the subscription has expired. When this status code is returned to your server, the receipt data is also decoded and returned as part of the response.");
-
-					case 21007:
-						throw new ApplicationException("This receipt is from the test environment, but it was sent to the production environment for verification. Send it to the test environment instead.");
-
-					case 21008:
-						throw new ApplicationException("This receipt is from the production environment, but it was sent to the test environment for verification. Send it to the production environment instead.");
-				
-					default:
-						throw new ApplicationException("Unknow receipt response status" + receiptResponse.status); 
-				}
+                throw new AppleReceiptException(receiptResponse.status, receiptResponse.exception);
 			}
 
 			return receiptResponse.receipt;

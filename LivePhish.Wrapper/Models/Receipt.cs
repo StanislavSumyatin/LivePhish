@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace LivePhish.Wrapper.Models
+﻿namespace LivePhish.Wrapper.Models
 {
 	public class Receipt
 	{
+	    // ReSharper disable InconsistentNaming
 		public string original_purchase_date_pst { get; set; }
 		public string original_transaction_id { get; set; }
 		public string original_purchase_date_ms { get; set; }
@@ -15,9 +11,9 @@ namespace LivePhish.Wrapper.Models
 		public string product_id { get; set; }
 		public string bvrs { get; set; }
 		public string purchase_date_ms { get; set; }
-		public string purchase_date { get; set; }
-		public string original_purchase_date { get; set; }
-		public string purchase_date_pst { get; set; }
+        public string purchase_date { get; set; }
+        public string original_purchase_date { get; set; }
+        public string purchase_date_pst { get; set; }
 		public string bid { get; set; }
 		public string item_id { get; set; }
 	}

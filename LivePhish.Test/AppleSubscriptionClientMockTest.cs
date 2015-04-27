@@ -1,4 +1,5 @@
 ﻿using System;
+using LivePhish.Wrapper.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using LivePhish.Wrapper.Implementation;
 
@@ -11,10 +12,12 @@ namespace LivePhish.Test
 		[ExpectedException(typeof(ArgumentNullException))]
 		public void GetSubscriptionInfoEmptyReciept()
 		{
+            // ReSharper disable once UnusedVariable
 			var client = new AppleSubscriptionClient(true, "");
 		}
 
 		[TestMethod]
+		// ReSharper disable once InconsistentNaming
 		public void GetSubscriptionInfoOK()
 		{
 			var client = new AppleSubscriptionClient(false, "receipt");
@@ -26,5 +29,28 @@ namespace LivePhish.Test
 			var response = client.GetSubscriptionInfo();
 			Assert.IsNotNull(response);
 		}
+
+        [TestMethod]
+        [ExpectedException(typeof(AppleReceiptException))]
+        public void GetSubscriptionInfoIncorrectReceipt()
+        {
+            var client = new AppleSubscriptionClient(false, "receipt");
+            var http = new MockHttpClient
+            {
+                State = "21005"
+            };
+            client.SetHttpClient(http);
+            var response = client.GetSubscriptionInfo();
+            Assert.IsNotNull(response);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NotImplementedException))]
+        public void CancelSubscription()
+        {
+            // ReSharper disable once UnusedVariable
+            var client = new AppleSubscriptionClient(true, "receipt");
+            client.CancelSubscription();
+        }
 	}
 }
