@@ -20,11 +20,11 @@ namespace LivePhish.Wrapper.Implementation
 
 		#region Private fields
 
-		private bool _isProduction;
+		private readonly bool _isProduction;
 
-		private string _receipt;
+		private readonly string _receipt;
 
-		private string _password;
+		private readonly string _password;
 
 		private IHttpClient _httpClient;
 

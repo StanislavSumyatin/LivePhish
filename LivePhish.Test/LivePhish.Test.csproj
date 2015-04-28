@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="AppleSubscriptionClientMockTest.cs" />
     <Compile Include="AppleSubscriptionClientTest.cs" />
+    <Compile Include="GoogleSubscriptionClientTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
