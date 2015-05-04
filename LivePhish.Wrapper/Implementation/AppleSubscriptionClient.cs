@@ -1,11 +1,11 @@
-﻿using LivePhish.Wrapper.Interfaces;
+﻿using LivePhish.Wrapper.Exceptions;
+using LivePhish.Wrapper.Interfaces;
 using LivePhish.Wrapper.Models;
 using LivePhish.Wrapper.Utils;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
-using LivePhish.Wrapper.Exceptions;
 using NLog;
+using System;
 
 namespace LivePhish.Wrapper.Implementation
 {

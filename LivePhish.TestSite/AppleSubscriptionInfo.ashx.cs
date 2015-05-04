@@ -1,7 +1,7 @@
 ﻿using LivePhish.Wrapper.Implementation;
+using LivePhish.Wrapper.Models;
 using LivePhish.Wrapper.Utils;
-using System;
-using System.Collections.Generic;
+using Newtonsoft.Json;
 using System.Configuration;
 using System.Web;
 
@@ -19,7 +19,8 @@ namespace LivePhish.TestSite
 			var client = new AppleSubscriptionClient(mode == "production", request);
 			client.SetHttpClient(new HttpClient());
 			var info = client.GetSubscriptionInfo();
-			context.Response.Write(info.item_id);
+			var response = JsonConvert.SerializeObject(info);
+			context.Response.Write(response);
 		}
 
 		public bool IsReusable
