@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Text;
 
 namespace LivePhish.Wrapper.Utils
@@ -17,5 +18,13 @@ namespace LivePhish.Wrapper.Utils
             var data = Convert.FromBase64String(value);
             return Encoding.UTF8.GetString(data);
 	    }
+
+		public static string ReadStream(Stream stream)
+		{
+			using (var streamReader = new StreamReader(stream))
+			{
+				return streamReader.ReadToEnd().Trim();
+			}
+		}
 	}
 }

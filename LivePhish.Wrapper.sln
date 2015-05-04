@@ -5,6 +5,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LivePhish.Wrapper", "LivePh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LivePhish.Test", "LivePhish.Test\LivePhish.Test.csproj", "{E176C190-A0C3-46CE-9E3C-39A0ABA8CB5E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LivePhish.TestSite", "LivePhish.TestSite\LivePhish.TestSite.csproj", "{A38F7A40-60BE-46CD-A90A-440CDB1A6849}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LivePhish.RequestSender", "LivePhish.RequestSender\LivePhish.RequestSender.csproj", "{D5B2A5D7-5B84-4ECA-AA67-5A73257C967E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +23,14 @@ Global
 		{E176C190-A0C3-46CE-9E3C-39A0ABA8CB5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E176C190-A0C3-46CE-9E3C-39A0ABA8CB5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E176C190-A0C3-46CE-9E3C-39A0ABA8CB5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A38F7A40-60BE-46CD-A90A-440CDB1A6849}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A38F7A40-60BE-46CD-A90A-440CDB1A6849}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A38F7A40-60BE-46CD-A90A-440CDB1A6849}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A38F7A40-60BE-46CD-A90A-440CDB1A6849}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5B2A5D7-5B84-4ECA-AA67-5A73257C967E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5B2A5D7-5B84-4ECA-AA67-5A73257C967E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5B2A5D7-5B84-4ECA-AA67-5A73257C967E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5B2A5D7-5B84-4ECA-AA67-5A73257C967E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

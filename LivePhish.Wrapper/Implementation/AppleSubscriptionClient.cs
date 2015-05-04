@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using LivePhish.Wrapper.Exceptions;
+using NLog;
 
 namespace LivePhish.Wrapper.Implementation
 {
@@ -28,6 +29,8 @@ namespace LivePhish.Wrapper.Implementation
 
 		private IHttpClient _httpClient;
 
+		private static readonly Logger Log = LogManager.GetCurrentClassLogger();
+
 		#endregion
 
 		#region Constructors
@@ -50,6 +53,11 @@ namespace LivePhish.Wrapper.Implementation
 
 		public void SetHttpClient(IHttpClient client)
 		{
+			if (client == null)
+			{
+				throw new ArgumentNullException("client");
+			}
+
 			_httpClient = client;
 		}
 
@@ -70,6 +78,7 @@ namespace LivePhish.Wrapper.Implementation
 			var response = _httpClient.SendPostRequest(url, json.ToString());
 			if (string.IsNullOrEmpty(response))
 			{
+				Log.Error("Empty response");
 				throw new ApplicationException("Empty response");
 			}
 
@@ -77,6 +86,7 @@ namespace LivePhish.Wrapper.Implementation
 
 			if (receiptResponse.status != 0)
 			{
+				Log.Error("Response status : {0}", receiptResponse.status);
                 throw new AppleReceiptException(receiptResponse.status, receiptResponse.exception);
 			}
 
