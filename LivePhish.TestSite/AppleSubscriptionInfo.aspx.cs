@@ -20,7 +20,7 @@ namespace LivePhish.TestSite
 
 			var context = this.Context;
 			var request = Helper.ReadStream(context.Request.InputStream);
-			var disableReceipt = ConfigurationManager.AppSettings["disableReceipt"] == "true";
+			var disableReceipt = ConfigurationManager.AppSettings["disableReceiptVerification"] == "true";
 			var client = new AppleSubscriptionClient(request);
 			IHttpClient httpClient;
 
