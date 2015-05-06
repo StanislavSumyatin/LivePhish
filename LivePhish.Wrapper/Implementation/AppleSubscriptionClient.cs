@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NLog;
 using System;
+using System.Text.RegularExpressions;
 
 namespace LivePhish.Wrapper.Implementation
 {
@@ -17,6 +18,8 @@ namespace LivePhish.Wrapper.Implementation
 
 		private const string ProdUrl = "https://buy.itunes.apple.com/verifyReceipt";
 
+		private const string Password = "63dea646d1c94bd8b7b175b5973775a8";
+
 		#endregion
 
 		#region Private fields
@@ -25,26 +28,32 @@ namespace LivePhish.Wrapper.Implementation
 
 		private readonly string _receipt;
 
-		private readonly string _password;
-
 		private IHttpClient _httpClient;
 
 		private static readonly Logger Log = LogManager.GetCurrentClassLogger();
+
+		private static readonly Regex Environemnt = new Regex("\\\"environment\\\" = \\\"(\\w*)\\\"", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
 
 		#endregion
 
 		#region Constructors
 
-		public AppleSubscriptionClient(bool isProduction, string receipt, string password = null)
+		public AppleSubscriptionClient(string receipt)
 		{
 			if (string.IsNullOrEmpty(receipt))
 			{
-				throw new ArgumentNullException("receipt", "Empty receipt");
+				throw new ArgumentNullException("receipt");
 			}
 
-			_isProduction = isProduction;
+			var m = Environemnt.Match(receipt);
+			var environment = "";
+			if (m.Success && m.Groups.Count > 1)
+			{
+				environment = m.Groups[1].Value;
+			}
+
+			_isProduction = string.Compare("Sandbox", environment, true) != 0;
 			_receipt = Helper.GetBase64(receipt);
-			_password = password;
 		}
 
 		#endregion
@@ -70,10 +79,7 @@ namespace LivePhish.Wrapper.Implementation
 			var url = GetUrl();
 
 			var json = new JObject(new JProperty("receipt-data", _receipt));
-			if (!string.IsNullOrEmpty(_password))
-			{
-				json.Add(new JProperty("password", _password));
-			}
+			json.Add(new JProperty("password", Password));
 
 			var response = _httpClient.SendPostRequest(url, json.ToString());
 			if (string.IsNullOrEmpty(response))

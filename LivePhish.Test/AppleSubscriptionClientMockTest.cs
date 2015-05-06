@@ -13,14 +13,14 @@ namespace LivePhish.Test
 		public void GetSubscriptionInfoEmptyReciept()
 		{
             // ReSharper disable once UnusedVariable
-			var client = new AppleSubscriptionClient(true, "");
+			var client = new AppleSubscriptionClient("");
 		}
 
 		[TestMethod]
 		// ReSharper disable once InconsistentNaming
 		public void GetSubscriptionInfoOK()
 		{
-			var client = new AppleSubscriptionClient(false, "receipt");
+			var client = new AppleSubscriptionClient("receipt");
 			var http = new MockHttpClient
 			{
 				State = "0"
@@ -34,7 +34,7 @@ namespace LivePhish.Test
         [ExpectedException(typeof(AppleReceiptException))]
         public void GetSubscriptionInfoIncorrectReceipt()
         {
-            var client = new AppleSubscriptionClient(false, "receipt");
+            var client = new AppleSubscriptionClient("receipt");
             var http = new MockHttpClient
             {
                 State = "21005"
@@ -49,7 +49,7 @@ namespace LivePhish.Test
         public void CancelSubscription()
         {
             // ReSharper disable once UnusedVariable
-            var client = new AppleSubscriptionClient(true, "receipt");
+            var client = new AppleSubscriptionClient("receipt");
             client.CancelSubscription();
         }
 	}

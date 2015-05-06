@@ -14,12 +14,14 @@ namespace LivePhish.RequestSender
 		public Form1()
 		{
 			InitializeComponent();
+
+			TextUrl.SelectedIndex = 0;
 		}
 
 		private void button1_Click(object sender, EventArgs e)
 		{
 			var webClient = new WebClient();
-			var response = webClient.UploadData(TextUrl.Text,
+			var response = webClient.UploadData(TextUrl.SelectedItem.ToString(),
 				Encoding.UTF8.GetBytes(TextRequest.Text.Trim()));
 			TextResponse.Text = Encoding.UTF8.GetString(response);
 		}

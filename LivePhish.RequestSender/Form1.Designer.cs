@@ -30,11 +30,11 @@
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
 			this.button1 = new System.Windows.Forms.Button();
-			this.TextUrl = new System.Windows.Forms.TextBox();
 			this.TextRequest = new System.Windows.Forms.TextBox();
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
 			this.TextResponse = new System.Windows.Forms.TextBox();
+			this.TextUrl = new System.Windows.Forms.ComboBox();
 			this.SuspendLayout();
 			// 
 			// button1
@@ -47,20 +47,15 @@
 			this.button1.UseVisualStyleBackColor = true;
 			this.button1.Click += new System.EventHandler(this.button1_Click);
 			// 
-			// TextUrl
-			// 
-			this.TextUrl.Location = new System.Drawing.Point(64, 12);
-			this.TextUrl.Name = "TextUrl";
-			this.TextUrl.Size = new System.Drawing.Size(675, 20);
-			this.TextUrl.TabIndex = 1;
-			this.TextUrl.Text = "http://localhost:4751/AppleSubscriptionInfo.ashx";
-			// 
 			// TextRequest
 			// 
+			this.TextRequest.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.TextRequest.Location = new System.Drawing.Point(64, 38);
 			this.TextRequest.Multiline = true;
 			this.TextRequest.Name = "TextRequest";
-			this.TextRequest.Size = new System.Drawing.Size(675, 262);
+			this.TextRequest.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.TextRequest.Size = new System.Drawing.Size(802, 262);
 			this.TextRequest.TabIndex = 2;
 			this.TextRequest.Text = resources.GetString("TextRequest.Text");
 			// 
@@ -84,23 +79,38 @@
 			// 
 			// TextResponse
 			// 
+			this.TextResponse.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.TextResponse.Location = new System.Drawing.Point(69, 335);
 			this.TextResponse.Multiline = true;
 			this.TextResponse.Name = "TextResponse";
 			this.TextResponse.ReadOnly = true;
-			this.TextResponse.Size = new System.Drawing.Size(675, 262);
+			this.TextResponse.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.TextResponse.Size = new System.Drawing.Size(802, 262);
 			this.TextResponse.TabIndex = 5;
+			// 
+			// TextUrl
+			// 
+			this.TextUrl.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.TextUrl.FormattingEnabled = true;
+			this.TextUrl.Items.AddRange(new object[] {
+            "http://localhost:4751/AppleSubscriptionInfo.aspx",
+            "http://phish.provectus-it.com/AppleSubscriptionInfo.aspx"});
+			this.TextUrl.Location = new System.Drawing.Point(64, 12);
+			this.TextUrl.Name = "TextUrl";
+			this.TextUrl.Size = new System.Drawing.Size(802, 21);
+			this.TextUrl.TabIndex = 6;
 			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(756, 613);
+			this.ClientSize = new System.Drawing.Size(883, 609);
+			this.Controls.Add(this.TextUrl);
 			this.Controls.Add(this.TextResponse);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.TextRequest);
-			this.Controls.Add(this.TextUrl);
 			this.Controls.Add(this.button1);
 			this.Name = "Form1";
 			this.Text = "Form1";
@@ -112,11 +122,11 @@
 		#endregion
 
 		private System.Windows.Forms.Button button1;
-		private System.Windows.Forms.TextBox TextUrl;
 		private System.Windows.Forms.TextBox TextRequest;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.TextBox TextResponse;
+		private System.Windows.Forms.ComboBox TextUrl;
 	}
 }
 
