@@ -9,8 +9,7 @@ namespace LivePhish.Wrapper.Utils
 		public static string GetBase64(string value)
 		{
 			var bytes = Encoding.UTF8.GetBytes(value);
-			var base64 = Convert.ToBase64String(bytes);
-			return base64;
+			return Convert.ToBase64String(bytes);
 		}
 
 	    public static string GetPlainFromBase64(string value)

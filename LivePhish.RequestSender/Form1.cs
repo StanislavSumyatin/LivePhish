@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -21,8 +22,12 @@ namespace LivePhish.RequestSender
 		private void button1_Click(object sender, EventArgs e)
 		{
 			var webClient = new WebClient();
-			var response = webClient.UploadData(TextUrl.SelectedItem.ToString(),
-				Encoding.UTF8.GetBytes(TextRequest.Text.Trim()));
+			var bytes = Encoding.UTF8.GetBytes(TextRequest.Text.Trim());
+			var transactionReceipt = Convert.ToBase64String(bytes);
+			var response = webClient.UploadValues(TextUrl.SelectedItem.ToString(), new NameValueCollection()
+			   {
+				   { "transactionReceipt", transactionReceipt }
+			   });
 			TextResponse.Text = Encoding.UTF8.GetString(response);
 		}
 	}
