@@ -8,7 +8,7 @@ namespace LivePhish.Wrapper.Interfaces
 {
 	public interface ISubscriptionClient
 	{
-		Receipt GetSubscriptionInfo();
+		ReceiptResponse GetSubscriptionInfo();
 
 		void CancelSubscription();
 	}

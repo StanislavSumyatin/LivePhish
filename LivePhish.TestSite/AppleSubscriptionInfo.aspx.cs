@@ -13,17 +13,20 @@ using System.Web.UI.WebControls;
 namespace LivePhish.TestSite
 {
 	public partial class AppleSubscriptionInfo : System.Web.UI.Page
-	{
+	{		
 		protected override void OnLoad(EventArgs e)
 		{
 			base.OnLoad(e);
 
 			var context = this.Context;
 			var transactionReceipt = context.Request["transactionReceipt"];
-			var request = Helper.GetPlainFromBase64(transactionReceipt);
+			// var request = Helper.GetPlainFromBase64(transactionReceipt);
 			//var request = Helper.ReadStream(context.Request.InputStream);
+
+			var requestDto = JsonConvert.DeserializeObject<RequestDto>(transactionReceipt);
+
 			var disableReceipt = ConfigurationManager.AppSettings["disableReceiptVerification"] == "true";
-			var client = new AppleSubscriptionClient(request);
+			var client = new AppleSubscriptionClient(requestDto.receipt, string.Compare("Sandbox", requestDto.environment, true) != 0);
 			IHttpClient httpClient;
 
 			if (disableReceipt)

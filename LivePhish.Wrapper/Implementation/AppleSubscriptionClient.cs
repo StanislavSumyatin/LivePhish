@@ -31,29 +31,21 @@ namespace LivePhish.Wrapper.Implementation
 		private IHttpClient _httpClient;
 
 		private static readonly Logger Log = LogManager.GetCurrentClassLogger();
-
-		private static readonly Regex Environemnt = new Regex("\\\"environment\\\" = \\\"(\\w*)\\\"", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
-
+		
 		#endregion
 
 		#region Constructors
 
-		public AppleSubscriptionClient(string receipt)
+		public AppleSubscriptionClient(string receipt, bool isProduction)
 		{
 			if (string.IsNullOrEmpty(receipt))
 			{
 				throw new ArgumentNullException("receipt");
 			}
 
-			var m = Environemnt.Match(receipt);
-			var environment = "";
-			if (m.Success && m.Groups.Count > 1)
-			{
-				environment = m.Groups[1].Value;
-			}
-
-			_isProduction = string.Compare("Sandbox", environment, true) != 0;
-			_receipt = Helper.GetBase64(receipt);
+			_isProduction = isProduction;
+			//_receipt = Helper.GetBase64(receipt);
+			_receipt = receipt;
 		}
 
 		#endregion
@@ -74,7 +66,7 @@ namespace LivePhish.Wrapper.Implementation
 
 		#region ISubscriptionClient implementation
 
-		public Receipt GetSubscriptionInfo()
+		public ReceiptResponse GetSubscriptionInfo()
 		{
 			var url = GetUrl();
 
@@ -96,7 +88,7 @@ namespace LivePhish.Wrapper.Implementation
                 throw new AppleReceiptException(receiptResponse.status, receiptResponse.exception);
 			}
 
-			return receiptResponse.receipt;
+			return receiptResponse;
 		}
 
 		public void CancelSubscription()

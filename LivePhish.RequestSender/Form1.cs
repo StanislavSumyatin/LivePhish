@@ -22,12 +22,12 @@ namespace LivePhish.RequestSender
 		private void button1_Click(object sender, EventArgs e)
 		{
 			var webClient = new WebClient();
-			var bytes = Encoding.UTF8.GetBytes(TextRequest.Text.Trim());
-			var transactionReceipt = Convert.ToBase64String(bytes);
+			//var bytes = Encoding.UTF8.GetBytes(TextRequest.Text.Trim());
+			//var transactionReceipt = Convert.ToBase64String(bytes);
 			var response = webClient.UploadValues(TextUrl.SelectedItem.ToString(), new NameValueCollection()
-			   {
-				   { "transactionReceipt", transactionReceipt }
-			   });
+			{
+				{ "transactionReceipt", TextRequest.Text.Trim() }
+			});
 			TextResponse.Text = Encoding.UTF8.GetString(response);
 		}
 	}

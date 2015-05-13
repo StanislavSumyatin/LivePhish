@@ -56,7 +56,7 @@ namespace LivePhish.Wrapper.Implementation
 
         #region ISubscriptionClient implementation
 
-        public Receipt GetSubscriptionInfo()
+		public ReceiptResponse GetSubscriptionInfo()
 		{
 			throw new NotImplementedException();
 		}

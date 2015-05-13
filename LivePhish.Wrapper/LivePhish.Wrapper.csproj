@@ -48,6 +48,7 @@
     <Compile Include="Implementation\MockHttpClient.cs" />
     <Compile Include="Interfaces\IHttpClient.cs" />
     <Compile Include="Interfaces\ISubscriptionClient.cs" />
+    <Compile Include="Models\InApp.cs" />
     <Compile Include="Models\Receipt.cs" />
     <Compile Include="Models\ReceiptResponse.cs" />
     <Compile Include="Models\SubscriptionPurchase.cs" />
