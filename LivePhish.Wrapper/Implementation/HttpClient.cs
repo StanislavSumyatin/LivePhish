@@ -2,9 +2,6 @@
 using LivePhish.Wrapper.Utils;
 using NLog;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Text;
 
 namespace LivePhish.Wrapper.Implementation
@@ -21,11 +18,9 @@ namespace LivePhish.Wrapper.Implementation
 
 		public string SendPostRequest(string url, string requestData)
 		{
-			Log.Debug("SendPostRequest to url:`{0}'", url);
-
 			var postBytes = Encoding.UTF8.GetBytes(requestData);
 
-			var request = System.Net.HttpWebRequest.Create(url);
+			var request = System.Net.WebRequest.Create(url);
 			request.Method = "POST";
 			request.ContentType = "application/json";
 			request.ContentLength = postBytes.Length;

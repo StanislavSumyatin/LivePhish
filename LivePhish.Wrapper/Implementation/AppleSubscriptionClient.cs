@@ -84,8 +84,7 @@ namespace LivePhish.Wrapper.Implementation
 
 			if (receiptResponse.status != 0)
 			{
-				Log.Error("Response status : {0}", receiptResponse.status);
-                throw new AppleReceiptException(receiptResponse.status, receiptResponse.exception);
+                throw new AppleReceiptException(receiptResponse.status, receiptResponse.exception + Environment.NewLine + "Receipt: " + json);
 			}
 
 			return receiptResponse;

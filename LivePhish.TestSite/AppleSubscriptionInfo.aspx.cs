@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using NLog;
 
 namespace LivePhish.TestSite
 {
@@ -17,38 +18,53 @@ namespace LivePhish.TestSite
 		protected override void OnLoad(EventArgs e)
 		{
 			base.OnLoad(e);
+            var log = LogManager.GetCurrentClassLogger();
+            var context = this.Context;
+            context.Response.Clear();
 
-			var context = this.Context;
-			var transactionReceipt = context.Request["transactionReceipt"];
-			// var request = Helper.GetPlainFromBase64(transactionReceipt);
-			//var request = Helper.ReadStream(context.Request.InputStream);
+		    try
+		    {
+		        var transactionReceipt = HttpUtility.UrlDecode(context.Request["transactionReceipt"]);
+		        // var request = Helper.GetPlainFromBase64(transactionReceipt);
+		        //var request = Helper.ReadStream(context.Request.InputStream);
 
-			var requestDto = JsonConvert.DeserializeObject<RequestDto>(transactionReceipt);
+                log.Info("Request: " + transactionReceipt);
 
-			var disableReceipt = ConfigurationManager.AppSettings["disableReceiptVerification"] == "true";
-			var client = new AppleSubscriptionClient(requestDto.receipt, string.Compare("Sandbox", requestDto.environment, true) != 0);
-			IHttpClient httpClient;
+		        var requestDto = JsonConvert.DeserializeObject<RequestDto>(transactionReceipt);
 
-			if (disableReceipt)
-			{
-				httpClient = new MockHttpClient()
-				{
-					State = "0"
-				};
-			}
-			else
-			{
-				httpClient = new HttpClient();
-			}
+		        var disableReceipt = ConfigurationManager.AppSettings["disableReceiptVerification"] == "true";
+		        var client = new AppleSubscriptionClient(requestDto.receipt,
+		            string.Compare("Sandbox", requestDto.environment, true) != 0);
+		        IHttpClient httpClient;
 
-			client.SetHttpClient(httpClient);
+		        if (disableReceipt)
+		        {
+		            httpClient = new MockHttpClient()
+		            {
+		                State = "0"
+		            };
+		        }
+		        else
+		        {
+		            httpClient = new HttpClient();
+		        }
 
-			var info = client.GetSubscriptionInfo();
-			var response = JsonConvert.SerializeObject(info);
+                //log.Info("Request: " + transactionReceipt);
 
-			context.Response.Clear();
-			context.Response.Write(response);
-			context.Response.End();
+		        client.SetHttpClient(httpClient);
+
+		        var info = client.GetSubscriptionInfo();
+		        var response = JsonConvert.SerializeObject(info);
+                context.Response.Write(response);
+
+            }
+            catch (Exception ex)
+            {
+                log.ErrorException(ex.ToString(), ex);
+                context.Response.Write(ex.ToString());
+            }
+		   
+		    context.Response.End();
 		}
 	}
 }
